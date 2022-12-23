@@ -1,1 +1,1 @@
-# Kth-DD2440-Advanced-Algorithms
+# KTH-DD2380-Artificial Intelligence
