@@ -1,5 +1,5 @@
 # KTH-DD2380-Artificial Intelligence
-This repository for the lab assignment in the course Artificial Intelligence at kth (DD2380).
+ Lab assignments in the course Artificial Intelligence at kth (DD2380).
 
 - [x] Search (20p kattis) 
 - [x] HMM(0-3)
