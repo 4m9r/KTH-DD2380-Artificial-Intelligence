@@ -15,11 +15,11 @@ More information on how to set up the environment and run the code can be found 
 ## HMM
 Using several algorithms to tackle hidden Markov problems.
 
-HMM0 calculates the probability of the outcome of the next state given state probability, transformation probability matrix, and outcome probability matrix.
+**HMM0** calculates the probability of the outcome of the next state given state probability, transformation probability matrix, and outcome probability matrix.
 
-HHM1 calculates the probability of an observation sequence happening given the model by utilizing a forward algorithm(alpha-pass)
+**HHM1** calculates the probability of an observation sequence happening given the model by utilizing a forward algorithm(alpha-pass)
 
-HHM2 finds the most likely sequence of the hidden states that results in a sequence of observation by utilizing the Viterbi algorithm
+**HHM2** finds the most likely sequence of the hidden states that results in a sequence of observation by utilizing the Viterbi algorithm
 
 HMM3 estimates the model using forward-backward algorithm
 
@@ -27,3 +27,13 @@ HMM3 estimates the model using forward-backward algorithm
 Using epsilon-greedy and algorithm Q-learning we find an optimal policy.
 
 More information on how to set up the environment and run the code can be found in the search folder.
+
+## Planning
+Simple planning problem.
+Online editor: [Link](http://editor.planning.domains/)
+## Swish
+Simple logic problem.
+Online editor: [Link](https://swish.swi-prolog.org/)
+
+
+
