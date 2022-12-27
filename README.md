@@ -1,5 +1,5 @@
 # KTH-DD2380-Artificial Intelligence
- Lab assignments in the course Artificial Intelligence at kth (DD2380).
+ Lab assignments in the course Artificial Intelligence at  KTH Royal Institute of Technology (DD2380).
 
 - [x] Search (20p kattis) 
 - [x] HMM(0-3)
