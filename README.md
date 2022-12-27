@@ -24,16 +24,18 @@ Using several algorithms to tackle hidden Markov problems.
 HMM3 estimates the model using forward-backward algorithm
 
 ## RL
-Using epsilon-greedy and algorithm Q-learning we find an optimal policy.
+Using epsilon-greedy algorithm and Q-learning, we find an optimal policy.
 
 More information on how to set up the environment and run the code can be found in the search folder.
 
 ## Planning
 Simple planning problem.
-Online editor: [Link](http://editor.planning.domains/)
+
+Online editor for this problem: [Link](http://editor.planning.domains/)
 ## Swish
 Simple logic problem.
-Online editor: [Link](https://swish.swi-prolog.org/)
+
+Online editor for this problem: [Link](https://swish.swi-prolog.org/)
 
 
 
