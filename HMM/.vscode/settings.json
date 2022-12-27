@@ -1,6 +1,0 @@
-{
-    "python.linting.pycodestyleEnabled": false,
-    "python.linting.prospectorEnabled": true,
-    "python.linting.enabled": false,
-    "python.formatting.provider": "autopep8"
-}
