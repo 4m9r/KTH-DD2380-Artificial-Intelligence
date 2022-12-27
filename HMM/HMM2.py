@@ -27,22 +27,22 @@ def main():
         
  
     sample_input3 = temp[2]
-    initial_matrix = [[] for x in range(int(sample_input3[0]))]
+    pi = [[] for x in range(int(sample_input3[0]))]
 
   
     for i in range(2, len(sample_input3)):
-        initial_matrix[(i - 2) // int(sample_input3[1])].append(float(sample_input3[i])) 
+        pi[(i - 2) // int(sample_input3[1])].append(float(sample_input3[i])) 
     
     sample_input4 = temp[3]    
-    emission_seq = []
+    obs = []
  
     for i in range(1, len(sample_input4)):
-        emission_seq.append(int(sample_input4[i]))
+        obs.append(int(sample_input4[i]))
         
 
     delta_1 = matrix_mul(initial_matrix[0], get_col(B, emission_seq[0]))
     
-    out_put = Viterbi(emission_seq[1:], A, B, delta_1, len(initial_matrix[0]), [] )
+    out_put = Viterbi(obs[1:], A, B, delta_1, len(initial_matrix[0]), [] )
     
     s = ""
     for i in range(len(out_put)):

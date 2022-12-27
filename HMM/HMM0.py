@@ -1,6 +1,8 @@
 import sys
 
 def main():
+
+    # using sys to get the inputs as suggest on kattis
     temp = []
     counter = 0
     for line in sys.stdin:
@@ -34,7 +36,6 @@ def main():
         initial_matrix[(i - 2) // int(sample_input3[1])].append(float(sample_input3[i])) 
         
   
-    
     next_state = matrix_mul(initial_matrix, A)
     out_put =  matrix_mul(next_state, B)  
         
@@ -45,6 +46,7 @@ def main():
 
 
 def matrix_mul(matr1, matr2):
+    #Helper function for matrix multipication
     if len(matr1[0]) != len(matr2):
         raise Exception("incorrect number of rows and columns")   
     new_matrix = [[] for _ in range(len(matr1))]
@@ -57,6 +59,7 @@ def matrix_mul(matr1, matr2):
     return new_matrix
 
 def to_str(matr):
+    #simple to_string function
     s = ""
     s = s + str(len(matr)) + " " + str(len(matr[0]))
     for i in range(0, len(matr)):

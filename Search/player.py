@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-import time
-
 from fishing_game_core.game_tree import Node
 from fishing_game_core.player_utils import PlayerController
 from fishing_game_core.shared import ACTION_TO_STR
-
 import math
+import time
+
 
 
 class PlayerControllerHuman(PlayerController):
@@ -56,19 +55,22 @@ class PlayerControllerMinimax(PlayerController):
 
     def search_best_next_move(self, initial_tree_node):
         """
-        Use minimax (and extensions) to find best possible next move for player 0 (green boat)
+        Find best possible next move for player 0 (green boat)
         :param initial_tree_node: Initial game tree node
         :type initial_tree_node: game_tree.Node
             (see the Node class in game_tree.py for more information!)
-        :return: either "stay", "left", "right", "up" or "down"
+        :return: Either "stay", "left", "right", "up" or "down"
         :rtype: str
         """
 
-        children = initial_tree_node.compute_and_get_children()
-        output_list = []
 
+        # Geting the next childern in the node tree
+        children = initial_tree_node.compute_and_get_children()
+
+        output_list = []
         depth = 0
 
+        # try to go as deep into the game tree as possible(time allows us)
         while True:
             try:
                 for child in children:
@@ -78,30 +80,28 @@ class PlayerControllerMinimax(PlayerController):
 
                     output_list.append(output)
 
-            except Exception as e:
+            except Exception as _:
                 break
-
+        
+        # Get the move that leads to the maximum child(node)
         max_socre = max(output_list)
         move = children[output_list.index(max_socre)].move
-        # EDIT THIS METHOD TO RETURN BEST NEXT POSSIBLE MODE USING MINIMAX ###
-        # NOTE: Don't forget to initialize the children of the current node
-        #       with its compute_and_get_children() method!
-        # random_move = random.randrange(5)
+
         return ACTION_TO_STR[move]
 
     def minimax(self, tree_node, depth, alpha, beta, player):
         """
         minimax algo with alpha beta pruning.
-        :param tree_node: the current game tree node
+        :param tree_node: The current game tree node
         :type tree_node: game_tree.Node
-        :param depth: the depth that the minimax algo look into
-        :type depth: integer
-        :param alpha: the current best value achievable for player A
-        :param beta: the current best value achievable for player B
+        :param depth: The depth that the minimax algo look into
+        :type depth: int
+        :param alpha: The current best value achievable for player A
+        :param beta: The current best value achievable for player B
         :type alpha, beta: float
-        :param player = the current player
+        :param player: The current player
         :type player: char
-        :param start_time: the time recorded when the function is called
+        :param start_time: The time recorded when the function is called
         :return: minimax value of state
         :rtype: float
         """
@@ -110,7 +110,9 @@ class PlayerControllerMinimax(PlayerController):
 
         hook_pos = tree_node.state.get_hook_positions()
         fish_pos = tree_node.state.get_fish_positions()
-
+        
+        # use hook position and fish position as a key of hash table. 
+        # TODO also include the depth of the interation in the key
         key = str(hook_pos) + str(fish_pos)
 
         if self.cache.get(key) != None:
@@ -149,11 +151,18 @@ class PlayerControllerMinimax(PlayerController):
 
     def heuristic(self, state):
         """
-        a heuristic function that calculate the sum of difference scores between player 0 and 1 and
+        Heuristic function that calculates the sum of difference scores between player 0 and 1 and
         the best distance to the most valuable fish
         :param state: current game state
         :type state: game_tree.State
         """
+        
+
+        # This heuristic may look unusual, since it calculates the score difference base on the palyer's turn.
+        # I could not explain why but this heuristic gave a better score on kattis(+2) than the one that 
+        # only calcuates max_player_score - min_player_score.
+
+        # some values were chosen to maximize the requred score on kattis (e.x. math.pow(dis, 12))
 
         hook_pos = state.get_hook_positions()[state.get_player()]
 
@@ -189,7 +198,7 @@ class PlayerControllerMinimax(PlayerController):
 
     def distance(self, cor1, cor2):
         """
-        a helper function for calculating the distance betweeb to coordinates
+        Helper function for calculating the distance betweeb two coordinates
         :param cor1: tuple of x,y coordinate
         :param cor2: tuple of x,y coordinate
         """
@@ -198,9 +207,3 @@ class PlayerControllerMinimax(PlayerController):
         answer = math.sqrt(math.pow(x, 2) + math.pow(cor2[1] - cor1[1], 2))
         return answer
 
-    def man_distance(self, cor1, cor2):
-
-        y = abs(cor1[1] - cor2[1])
-        x = abs(cor1[0] - cor2[0])
-        x = min(x, 20 - x)
-        return x + y
