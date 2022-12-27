@@ -47,6 +47,8 @@ def main():
     current_p = 0
     counter = 1
     start_time = time.time()
+    
+    # iterate till convergence
     while old_p < current_p:
         if time.time() - start_time > 0.9:
             break
@@ -90,6 +92,8 @@ def alpha_pass(obs, A, B, pi):
                 temp.append(next_alpha)
         
         c = 1 / scal_temp
+        
+        # scaling
         for k in range(N):
             temp[k] = temp[k] * c
         scal.append(c)     
@@ -120,16 +124,13 @@ def beta_pass(obs, A, B, pi, scal):
 
 
     
-    
+# finding the gamma and di-gamma
 def gamma_fun(obs, alpha_list, beta_list, A, B):    
     T = len(obs)
     N = len(A)
-    gamma_list = []
-    gamma_sum_list = []
-    alpha_nor = 0
     
-    for i in range(N):
-        alpha_nor += alpha_list[T - 1][i]   #Denominator
+    gamma_list = [] #di_gamma
+    gamma_sum_list = [] #gamma
     
     for t in range(T - 1):
         gamma_sum_list_temp = []
@@ -139,9 +140,9 @@ def gamma_fun(obs, alpha_list, beta_list, A, B):
             temp = []
             gamma_sum = 0
             for j in range(N):
-                nom = alpha_list[t][i] *A[i][j]* beta_list[t + 1][j] * B[j][obs[t + 1]]
-                gamma_sum += nom
-                temp.append(nom)
+                gamma_value = alpha_list[t][i] *A[i][j]* beta_list[t + 1][j] * B[j][obs[t + 1]]
+                gamma_sum += gamma_value
+                temp.append(gamma_value)
             gamma_sum_list_temp.append(gamma_sum)        
             gamma_list_temp.append(temp)
             
@@ -199,14 +200,7 @@ def model_learning(obs, A, B, gamma_list, gamma_sum):
             temp.append(b_k/ b_i)
         new_B.append(temp)
 
-    return new_pi, new_A, new_B
-
-def matrix_mul(matr1, matr2):
-    new_matrix = []
-    for i, j in zip(matr1, matr2):
-        new_matrix.append(i * j)
-    return new_matrix
-        
+    return new_pi, new_A, new_B        
 
 def to_str(matr):
     s = ""
@@ -216,10 +210,12 @@ def to_str(matr):
             s = s + " " + str(matr[i][j])
     return s
 
+
 def prob(obs, scal):
     T = len(obs)
     prob = 0
     for i in range(T):
+        # to avoid underflow we use log
         prob -= math.log(scal[i])
     return prob
 
